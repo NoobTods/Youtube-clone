@@ -1,9 +1,8 @@
 import { Stack } from '@mui/material'
 import { categories } from '../utils/constants.jsx'
 
-const selectedCategory = 'New';
 
-const Sidebar = () => (
+const Sidebar = ({ selectedCategory, setSelectedCategory}) => (
     <Stack
         direction="row"
         sx={{ 
@@ -18,11 +17,12 @@ const Sidebar = () => (
             return (
                 <button 
                     className='category-btn' 
-                    key={category.name}
                     style={{
                         background: category.name === selectedCategory && '#FC1503',
                         color: 'white'
                     }}
+                    onClick={() => setSelectedCategory(category.name)}
+                    key={category.name}
                 >
                     <span style={{ color: category.name === selectedCategory ? 'white' : 'red', marginRight: '15px'}}><Icon /></span>
                     <span style={{ opacity: category.name === selectedCategory ? '1' : '0.8'}}>{category.name}</span>

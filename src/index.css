@@ -62,6 +62,11 @@ a {
   transition: all 0.3s ease;
 }
 
+.video-image {
+  background-color: black;
+  background: black;
+}
+
 @media screen and (max-width: 900px) {
   .category-btn{
     margin: 10px;
