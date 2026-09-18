@@ -22,7 +22,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Box sx={{ backgroundColor: '#000' }}>
+      <Box sx={{ backgroundColor: '#0f0f0f' }}>
         <Navbar />
         {/* [CHANGED] Same row layout Feed used to render, but at the app level:
             sidebar on the left, routed page on the right. */}

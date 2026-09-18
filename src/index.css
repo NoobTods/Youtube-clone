@@ -26,7 +26,7 @@ a {
 }
 
 .category-btn:hover {
-  background-color: #FC1503 !important;
+  background-color: #2e2e2e !important;
   color: white !important;
 }
 
@@ -40,9 +40,12 @@ a {
 }
 
 .search-bar{
+  background: #0f0f0f;
   border:none;
   outline:none;
   width:350px;
+  height: 100%;
+  color: white;
 }
 
 .category-btn{
@@ -56,9 +59,9 @@ a {
   outline: none;
   border: none;
 
-  padding: 7px 15px;
-  margin: 10px 0px;
-  border-radius: 20px;
+  padding: 7px 10px;
+  margin: 0px;
+  border-radius: 10px;
   transition: all 0.3s ease;
 }
 
@@ -69,7 +72,7 @@ a {
 
 @media screen and (max-width: 900px) {
   .category-btn{
-    margin: 10px;
+    margin: 5px;
   }
 }
 
@@ -88,6 +91,6 @@ a {
     height: 45vh !important;
   }
   .search-bar{
-    width:200px;
+    width:150px;
   }
 }

@@ -17,7 +17,7 @@ const Feed = ({ selectedCategory }) => {
 
   if (isPending) {
     return (
-      <Stack alignItems="center" justifyContent="center" sx={{ minHeight: '60vh' }}>
+      <Stack alignItems="center" justifyContent="center" sx={{ minHeight: '100vh' }}>
         <CircularProgress sx={{ color: '#F31503' }} />
       </Stack>
     );
