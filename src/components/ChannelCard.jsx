@@ -14,12 +14,19 @@ const ChannelCard = ({ channelDetail }) => {
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center', 
-            width: { xs: '356px', md: '320px'}, 
+            width: '100%',
+            maxWidth: { xs: '356px', md: '320px'}, 
             height: '300px', 
             margin: 'auto'
         }}
     >
-        <Link to={`/channel/${channelDetail?.id?.channelId}`}>
+        <Link 
+            to={`/channel/${channelDetail?.id?.channelId}`}
+            style={{
+                textDecoration: 'none',
+                width: '100%',
+            }}
+        >
             <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', color: '#fff'}}>
                 <CardMedia
                     image={channelDetail?.snippet?.thumbnails?.high?.url || demoProfilePicture} 

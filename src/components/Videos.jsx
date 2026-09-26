@@ -1,21 +1,19 @@
 import { Box, Stack } from '@mui/material'
-import React from 'react'
 import { VideoCard, ChannelCard } from './'
 
 const Videos = ({ videos }) => {
   return (
     <Stack 
         display="grid"
-        gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+        gridTemplateColumns={{
+            xs: '1fr',
+            sm: 'repeat(auto-fill, minmax(260px, 1fr))',
+        }}
         gap={2}
     >
         {videos.map((item, idx) => {
             if (item.id.videoId) {
-                return (
-                <Box key={idx}>
-                    <VideoCard video={item} />
-                </Box>
-                );
+                return <VideoCard key={idx} video={item} />;
             }
 
             if (item.id.channelId) {
@@ -26,7 +24,7 @@ const Videos = ({ videos }) => {
                 );
             }
 
-            return null; // 🔥 évite les cartes vides
+            return null;
         })}
 
     </Stack>

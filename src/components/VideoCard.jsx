@@ -1,35 +1,54 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { demoChannelTitle, demoChannelUrl, demoVideoTitle, demoVideoUrl } from '../utils/constants';
-import { CheckCircle, Style } from '@mui/icons-material';
+import { CheckCircle } from '@mui/icons-material';
 
 const VideoCard = ({ video : { id: { videoId }, snippet}}) => {
 
     return (
         <Card 
             sx={{ 
-                width: { md: '320px', xs: '100%' }, 
+                width: '100%',
                 boxShadow: 'none', 
-                borderRadius: 0,
-                height: '300px',
-                backgroundColor: '#000'
+                borderRadius: '12px',
+                backgroundColor: '#0f0f0f',
+                padding: '8px',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s ease',
+                boxSizing: 'border-box',
+                '&:hover': {
+                    backgroundColor: '#272727',
+                },
             }}
         >
-            <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
-                <CardMedia 
-                    image={snippet?.thumbnails?.high?.url} 
-                    alt={snippet?.title}
-                    sx={{ 
-                        width: {md: '320px', xs: '100%'}, 
-                        height: 180, 
-                        borderRadius: '10px', 
-                    }}
-                />
-            </Link>
-            <CardContent sx={{ backgroundColor: '#000', height: '106px'}}>
+            <Box sx={{ overflow: 'hidden', borderRadius: '10px' }}>
                 <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
-                    <Typography variant='subtitle1' fontWeight="bold" color="#fff">
+                    <CardMedia 
+                        image={snippet?.thumbnails?.high?.url} 
+                        alt={snippet?.title}
+                        className="video-thumb"
+                        sx={{ 
+                            width: '100%', 
+                            aspectRatio: '16/9',
+                            borderRadius: '10px', 
+                        }}
+                    />
+                </Link>
+            </Box>
+            <CardContent sx={{ backgroundColor: 'transparent', height: 'auto' }}>
+                <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+                    <Typography 
+                        variant='subtitle1' 
+                        fontWeight="bold" 
+                        color="#fff" 
+                        sx={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                        }}
+                    >
                         {snippet?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
                     </Typography>
                 </Link>
