@@ -10,17 +10,14 @@ const ChannelDetail = () => {
   const { data: channelDetail, isLoading: isChannelLoading } = useQuery({
     queryKey: ['channel', id],
     queryFn: () => fetchFromAPI(`channels?part=snippet&id=${id}`).then((data) => data?.items[0]),
-    enabled: !!id, // Sécurité : ne lance la requête que si l'id est présent
+    enabled: !!id,
   });
 
-  // 2. Requête pour récupérer les vidéos de la chaîne
   const { data: videos, isLoading: isVideosLoading } = useQuery({
     queryKey: ['channelVideos', id],
     queryFn: () => fetchFromAPI(`search?channelId=${id}&part=snippet&order=date`).then((data) => data?.items),
     enabled: !!id,
   });
-
-  // console.log(channelDetail, videos);
 
   if (isChannelLoading || isVideosLoading) {
     return (

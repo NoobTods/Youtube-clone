@@ -6,12 +6,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 
 const SearchFeed = () => {
-  // Doit correspondre exactement au nom du param de la route : '/search/:searchTerm'
   const { searchTerm } = useParams();
-
-  // Pas besoin de state local : le queryKey réagit à searchTerm, donc chaque
-  // nouvelle recherche (navigate depuis SearchBar) déclenche un refetch
-  // automatique et met à jour `data`.
+  
   const { data: videos, isPending, isError } = useQuery({
     queryKey: ['search', searchTerm],
     queryFn: () => fetchFromAPI(`search?part=snippet&q=${searchTerm}`),
