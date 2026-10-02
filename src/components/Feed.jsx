@@ -4,9 +4,6 @@ import { Videos } from './'
 import { fetchFromAPI } from '../utils/fetchFromAPI'
 import { useQuery } from '@tanstack/react-query'
 
-// [CHANGED] The Sidebar and the `selectedCategory` state moved up to App.jsx so
-// the sidebar is part of the global layout (always visible, like the Navbar).
-// Feed now receives the category as a prop and only fetches + renders videos.
 const Feed = ({ selectedCategory }) => {
 
   const { data: videos, isPending, isError } = useQuery({

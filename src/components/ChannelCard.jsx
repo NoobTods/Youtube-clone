@@ -1,10 +1,16 @@
 import { Box, CardContent, CardMedia, Typography } from "@mui/material"
 import { CheckCircle } from "@mui/icons-material"
 import { Link } from "react-router-dom"
-import { demoProfilePicture } from "../utils/constants"
+import { demoProfilePicture } from "../utils/constants";
 
-const ChannelCard = ({ channelDetail }) => {
+const ChannelCard = ({ channelDetail, marginTop }) => {
     if(!channelDetail) return "Loading...";
+
+    const profileImage = 
+        channelDetail?.snippet?.thumbnails?.high?.url ||
+        channelDetail?.snippet?.thumbnails?.medium?.url ||
+        channelDetail?.snippet?.thumbnails?.default?.url ||
+        demoProfilePicture;
 
     return (
     <Box 
@@ -17,7 +23,8 @@ const ChannelCard = ({ channelDetail }) => {
             width: '100%',
             maxWidth: { xs: '356px', md: '320px'}, 
             height: '300px', 
-            margin: 'auto'
+            margin: 'auto',
+            marginTop
         }}
     >
         <Link 
@@ -27,11 +34,27 @@ const ChannelCard = ({ channelDetail }) => {
                 width: '100%',
             }}
         >
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', color: '#fff'}}>
+            <CardContent 
+                sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    textAlign: 'center', 
+                    color: '#fff'
+                }}
+            >
                 <CardMedia
-                    image={channelDetail?.snippet?.thumbnails?.high?.url || demoProfilePicture} 
+                    image={ profileImage } 
                     alt={channelDetail?.snippet?.title}
-                    sx={{ borderRadius: '50%', height: '180px', width: '180px', mb: 2, border: '1px solid #e3e3e3'}}
+                    sx={{ 
+                        borderRadius: '50%', 
+                        height: '180px', 
+                        width: '180px', 
+                        mb: 2, 
+                        border: '1px solid #e3e3e3',
+                        backgroundColor: '#212121',
+                    }}
                 />
                 <Typography variant="h6">
                     {channelDetail?.snippet?.title}

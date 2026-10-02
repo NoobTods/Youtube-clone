@@ -18,9 +18,7 @@ const Videos = ({ videos }) => {
 
             if (item.id.channelId) {
                 return (
-                <Box key={idx}>
-                    <ChannelCard channelDetail={item} />
-                </Box>
+                    <ChannelCard key={idx} channelDetail={item} />
                 );
             }
 
