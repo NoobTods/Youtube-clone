@@ -12,23 +12,34 @@ import App from './App.jsx'
 //    on endpoints that are failing anyway (e.g. quota exhausted -> 429).
 //  - gcTime (default 5 min): closed pages keep their cache entry a while, so
 //    going back to a page restores instantly without a new request.
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
+// [CHANGED - quota] Persistance du cache dans localStorage : recharger la page
+// ne re-consomme PAS de quota tant que les données sont encore "fraîches".
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 10 * 60 * 1000,      // [CHANGED - quota] 10 minutes of freshness
+      staleTime: 30 * 60 * 1000,      // [CHANGED - quota] 30 minutes of freshness
+      gcTime: 30 * 60 * 1000,         // [CHANGED - quota] keep cache 30 min for persistence
       refetchOnWindowFocus: false,    // [CHANGED - quota] don't refetch on tab focus
       retry: 1,                       // [CHANGED - quota] limit blind retries
     },
   },
 });
 
+// Sauvegarde le cache dans localStorage sous la clé 'YOUTUBE_CLONE_CACHE'
+const persister = createSyncStoragePersister({
+  storage: window.localStorage,
+  key: 'YOUTUBE_CLONE_CACHE',
+});
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* [CHANGED - quota] Provider makes the cache available to every useQuery call */}
-    <QueryClientProvider client={queryClient}>
+    {/* [CHANGED - quota] Provider with persisted cache */}
+    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: 30 * 60 * 1000 }}>
       <App />
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   </StrictMode>,
 )
