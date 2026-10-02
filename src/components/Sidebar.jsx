@@ -1,8 +1,18 @@
 import { Stack } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import { categories } from '../utils/constants.jsx'
 
 
-const Sidebar = ({ selectedCategory, setSelectedCategory}) => (
+const Sidebar = ({ selectedCategory, setSelectedCategory}) => {
+    const navigate = useNavigate();
+
+    const handleClick = (name) => {
+        setSelectedCategory(name);
+        
+        navigate('/');
+    };
+
+    return (
     <Stack
         direction="row"
         sx={{ 
@@ -20,10 +30,10 @@ const Sidebar = ({ selectedCategory, setSelectedCategory}) => (
                     className='category-btn' 
                     style={{
                         background: category.name === selectedCategory && '#2e2e2e',
-                        color: 'white'
+                        color: 'white',
                         
                     }}
-                    onClick={() => setSelectedCategory(category.name)}
+                    onClick={() => handleClick(category.name)}
                     key={category.name}
                 >
                     <span style={{ color: 'white', marginRight: '15px'}}><Icon /></span>
@@ -32,6 +42,7 @@ const Sidebar = ({ selectedCategory, setSelectedCategory}) => (
             );
         })}
     </Stack>
-)
+    );
+}
 
 export default Sidebar
