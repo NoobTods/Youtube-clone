@@ -12,7 +12,7 @@ Elle permet de parcourir les vidéos tendance, rechercher des contenus, consulte
 - Interface responsive (mobile / desktop) avec barre de navigation inférieure sur mobile
 - Persistance de la catégorie sélectionnée et cache des requêtes (React Query)
 
-## 🛠 Technologies utilisées
+## Technologies utilisées
 
 - **React 19** avec **Vite**
 - **React Router** pour la navigation
