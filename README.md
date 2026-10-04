@@ -31,7 +31,7 @@ Elle permet de parcourir les vidéos tendance, rechercher des contenus, consulte
 
 ```bash
 # Cloner le projet
-git clone <url-du-repo>
+git clone https://github.com/NoobTods/Youtube-clone
 cd Youtube_clone
 
 # Installer les dépendances
@@ -53,7 +53,7 @@ VITE_APP_RAPID_API_KEY='ta_cle_rapidapi'
 VITE_YOUTUBE_API_KEY='ta_cle_google'
 ```
 
-## ▶️ Lancer le projet
+## Lancer le projet
 
 ```bash
 # Mode développement
