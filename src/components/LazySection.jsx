@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-// [CHANGED - quota] Rend ses enfants uniquement quand la zone entre dans le
-// viewport. Permet de ne déclencher une requête API (useQuery des enfants)
-// que lorsque l'utilisateur scrolle réellement jusqu'à la section.
 const LazySection = ({ children, rootMargin = '300px' }) => {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);

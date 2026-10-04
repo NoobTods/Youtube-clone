@@ -5,18 +5,20 @@ import { logo } from '../utils/constants.jsx'
 import SearchBar from './SearchBar.jsx'
 import { MenuOutlined } from '@mui/icons-material'
 
-const Navbar = () => (
+const Navbar = ({ onToggleSidebar }) => (
   <Stack 
     direction="row" 
     alignItems="center" 
     p={1} 
     sx={{ position: 'sticky', background: '#0f0f0f', top: 0, justifyContent: 'space-between' }}
+    zIndex={2000}
   >
     <Box
       display={'flex'}
     >
       <button 
         className='category-btn'
+        onClick={onToggleSidebar}
         style={{
           border: 'none',
           background: 'transparent',

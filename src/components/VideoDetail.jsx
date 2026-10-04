@@ -5,7 +5,6 @@ import { fetchFromAPI, API_PROVIDER } from '../utils/fetchFromAPI'
 import { useQuery } from '@tanstack/react-query'
 import { CheckCircle } from '@mui/icons-material'
 import Videos from './Videos'
-import LazySection from './LazySection'
 
 const VideoDetail = () => {
   const { id } = useParams();
@@ -38,13 +37,15 @@ const VideoDetail = () => {
 
   return (
     <Box minHeight="95vh">
-      <Stack direction={{ xs: 'column', md: 'row' }}>
-        <Box flex={1}>
-          <Box sx={{ width: '100%', position: 'sticky', top: '86px'}}>
-            <Box sx={{ borderRadius: '10px', overflow: 'hidden' }}>
+      <Stack direction={{ xs: 'column', md: 'row' }} gap={2} flexWrap="wrap">
+        <Box flex={1} sx={{ minWidth: { md: '400px' } }}>
+          <Box sx={{ width: '100%', position: 'sticky', top: '15px'}}>
+            <Box sx={{ borderRadius: '10px', overflow: 'hidden', width: '100%', aspectRatio: '16/9' }}>
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${id}`}
                 controls
+                width="100%"
+                height="100%"
                 className="react-player"
               />
             </Box>
@@ -64,26 +65,18 @@ const VideoDetail = () => {
             </Stack>
           </Box>
         </Box>
-      </Stack>
-
-      <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center">
-        {/* [CHANGED - quota] La requête "vidéos similaires" ne part que quand
-            l'utilisateur scrolle jusqu'à cette section */}
-        <LazySection>
+        <Box py={{ md: 1, xs: 2 }} justifyContent="center" alignItems="center" sx={{ width: { xs: '100%', md: '300px' }, flexShrink: 0 }}>
           <RelatedVideos id={id} title={title} />
-        </LazySection>
-      </Box>
+        </Box>
+      </Stack>
     </Box>
   )
 }
 
-// [CHANGED - quota] Composant séparé : sa query ne s'exécute que lorsqu'il est
-// monté (c.-à-d. quand LazySection le rend visible).
 const RelatedVideos = ({ id, title }) => {
   const { data: videos, isPending, isError } = useQuery({
     queryKey: ['videos', id, API_PROVIDER],
-    // [CHANGED - dual provider] L'API officielle ne supporte plus
-    // relatedToVideoId : on cherche des vidéos par titre à la place.
+    //L'API officielle ne supporte plus relatedToVideoId : on cherche des vidéos par titre à la place.
     queryFn: () =>
       API_PROVIDER === 'official'
         ? fetchFromAPI(`search?part=snippet&q=${encodeURIComponent(title ?? '')}`)

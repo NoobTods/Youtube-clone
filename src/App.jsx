@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Box, Stack, Typography } from '@mui/material';
-import { Navbar, Sidebar, Feed, SearchFeed, ChannelDetail, VideoDetail, BottomNav } from './components';
+import { Box, Stack } from '@mui/material';
+import { Navbar, Sidebar, Feed, SearchFeed, ChannelDetail, VideoDetail } from './components';
 import './App.css'
 
 function App() {
@@ -9,6 +9,9 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(
     () => localStorage.getItem('selectedCategory') || 'New'
   );
+
+  // Sidebar ouvert par défaut sur desktop, fermé sur mobile
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 900);
 
   const handleSelectCategory = (category) => {
     setSelectedCategory(category);
@@ -18,31 +21,20 @@ function App() {
   return (
     <BrowserRouter>
       <Box sx={{ backgroundColor: '#0f0f0f' }}>
-        <Navbar />
+        <Navbar onToggleSidebar={() => setSidebarOpen((prev) => !prev)} />
         <Stack sx={{ flexDirection: { xs: "column", md: "row" } }}>
-          <Box
-            sx={{
-              display: { xs: 'none', md: 'block' },
-              height: { md: 'calc(100vh - 56px)' },
-              borderRight: '1px solid #3d3d3d',
-              px: { md: 2 },
-            }}
-          >
-            <Sidebar
-              selectedCategory={selectedCategory}
-              setSelectedCategory={handleSelectCategory}
-            />
-            <Typography className='copyright' variant='body2' sx={{ mt: 1.5, color: '#fff' }}>
-              Copyright 2026 Tods
-            </Typography>
-          </Box>
+          <Sidebar
+            selectedCategory={selectedCategory}
+            setSelectedCategory={handleSelectCategory}
+            open={sidebarOpen}
+            onClose={() => { if (window.innerWidth < 900) setSidebarOpen(false); }}
+          />
           <Box
             sx={{
               flex: 2,
               p: { xs: 1.5, md: 2 },
               overflowY: { md: 'auto' },
               height: { md: 'calc(100vh - 56px)' },
-              pb: { xs: '76px', md: 2 },
             }}
           >
             <Routes>
@@ -53,11 +45,6 @@ function App() {
             </Routes>
           </Box>
         </Stack>
-
-        <BottomNav
-          selectedCategory={selectedCategory}
-          setSelectedCategory={handleSelectCategory}
-        />
       </Box>
     </BrowserRouter>
   )

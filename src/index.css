@@ -35,8 +35,9 @@ a {
 }
 
 .react-player {
-  height: 77vh !important;
   width: 100% !important;
+  height: 100% !important;
+  min-width: 300px !important;
 }
 
 .search-bar{
@@ -64,9 +65,37 @@ a {
   transition: all 0.3s ease;
 }
 
+.category-icon {
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 900px) {
+  .sidebar.collapsed .category-btn {
+    justify-content: center;
+  }
+
+  .sidebar.collapsed .category-text {
+    display: none;
+  }
+
+  .sidebar.collapsed .category-icon {
+    margin-right: 0;
+  }
+}
+
 .video-image {
   background-color: black;
   background: black;
+}
+
+.video-thumb {
+  width: 100% !important;
+  aspect-ratio: 16/9 !important;
+  height: auto !important;
+  background-size: cover !important;
+  background-position: center !important;
 }
 
 @media screen and (max-width: 900px) {
@@ -87,7 +116,7 @@ a {
   }
 
   .react-player {
-    height: 45vh !important;
+    height: 100% !important;
   }
   .search-bar{
     width:150px;
